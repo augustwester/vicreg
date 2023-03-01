@@ -30,7 +30,7 @@ augment = transforms.Compose([
 
 # define train and test datasets
 train_data = CIFAR10(root=".", train=True, download=True, transform=augment)
-test_data = CIFAR10(root=".", train=False, download=True)
+test_data = CIFAR10(root=".", train=False, download=True, transform=transforms.ToTensor())
 train_dataloader = DataLoader(train_data, batch_size, shuffle=True, num_workers=2)
 test_dataloader = DataLoader(test_data, batch_size)
 
