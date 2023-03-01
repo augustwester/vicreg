@@ -17,7 +17,7 @@ model.load_state_dict(cp["model_state_dict"]).to(device)
 
 # create mlp, optimizer, scheduler and training hyperparams
 num_classes, batch_size, num_epochs = 10, 128, 64
-mlp = nn.Linear(512, num_classes).to(device)
+mlp = nn.Linear(encoder_dim, num_classes).to(device)
 opt = SGD(mlp.parameters(), lr=1e-4, momentum=0.9)
 scheduler = CosineAnnealingLR(opt, num_epochs)
 
