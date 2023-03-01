@@ -16,6 +16,7 @@ class Augmentation:
             transforms.RandomHorizontalFlip(0.5),
             transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.2, 0.1)], p=0.8),
             transforms.RandomGrayscale(0.2),
+            transforms.RandomApply([transforms.GaussianBlur(3)], p=0.5),
             transforms.RandomSolarize(0.5, p=0.2),
             transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
         ])
