@@ -15,10 +15,10 @@ encoder_dim, projector_dim = cp["encoder_dim"], cp["projector_dim"]
 model = VICReg(encoder_dim, projector_dim)
 model.load_state_dict(cp["model_state_dict"]).to(device)
 
-# create mlp, optimizer, scheduler and training hyperparams
+# create linear layer, optimizer, scheduler and training hyperparams
 num_classes, batch_size, num_epochs = 10, 128, 64
-mlp = nn.Linear(encoder_dim, num_classes).to(device)
-opt = SGD(mlp.parameters(), lr=1e-4, momentum=0.9)
+linear = nn.Linear(encoder_dim, num_classes).to(device)
+opt = SGD(linear.parameters(), lr=1e-4, momentum=0.9)
 scheduler = CosineAnnealingLR(opt, num_epochs)
 
 # data augmentations used to regularize the MLP
@@ -43,7 +43,7 @@ for _ in progress:
     for images, labels in train_dataloader:
         images, labels = images.to(device), labels.to(device)
         encoder_out = model.encoder(images)
-        preds = mlp(encoder_out)
+        preds = linear(encoder_out)
         loss = criterion(preds, labels)
         loss.backward()
         opt.step()
@@ -56,7 +56,7 @@ num_correct = len(test_data)
 for image, label in test_dataloader:
     image, label = image.to(device), label.to(device)
     encoder_out = model.encoder(image)
-    pred = mlp(encoder_out).argmax(-1)
+    pred = linear(encoder_out).argmax(-1)
     num_incorrect = torch.count_nonzero(pred-label)
     num_correct -= num_incorrect
 print("Accuracy:", num_correct / len(test_data))

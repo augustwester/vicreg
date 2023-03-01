@@ -59,7 +59,6 @@ for epoch in progress:
         opt.zero_grad()
         loss.backward()
         opt.step()
-
         progress.set_description(f"Loss: {loss.item()}")
 
     if epoch % 10 == 0 or epoch == num_epochs - 1:
