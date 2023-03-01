@@ -12,8 +12,8 @@ from tqdm import tqdm
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cp = torch.load("checkpoint.pt")
 encoder_dim, projector_dim = cp["encoder_dim"], cp["projector_dim"]
-model = VICReg(encoder_dim, projector_dim)
-model.load_state_dict(cp["model_state_dict"]).to(device)
+model = VICReg(encoder_dim, projector_dim).to(device)
+model.load_state_dict(cp["model_state_dict"])
 
 # create linear layer, optimizer, scheduler and training hyperparams
 num_classes, batch_size, num_epochs = 10, 128, 64
