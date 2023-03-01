@@ -21,7 +21,7 @@ linear = nn.Linear(encoder_dim, num_classes).to(device)
 opt = SGD(linear.parameters(), lr=1e-4, momentum=0.9)
 scheduler = CosineAnnealingLR(opt, num_epochs)
 
-# data augmentations used to regularize the MLP
+# data augmentations used to regularize the linear layer
 augment = transforms.Compose([
     transforms.ToTensor(),
     transforms.RandomHorizontalFlip(),
@@ -38,7 +38,7 @@ test_dataloader = DataLoader(test_data, batch_size)
 criterion = nn.CrossEntropyLoss()
 progress = tqdm(range(num_epochs))
 
-# train the MLP on the representations of the frozen encoder
+# train the linear layer on the representations of the frozen encoder
 for _ in progress:
     for images, labels in train_dataloader:
         images, labels = images.to(device), labels.to(device)
@@ -51,7 +51,7 @@ for _ in progress:
         progress.set_description(f"Loss: {loss.item()}")
     scheduler.step()
 
-# evaluate the accuracy after training the MLP
+# evaluate the accuracy after training the linear layer
 num_correct = len(test_data)
 for image, label in test_dataloader:
     image, label = image.to(device), label.to(device)
