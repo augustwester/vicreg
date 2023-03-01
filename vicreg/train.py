@@ -67,7 +67,7 @@ for epoch in progress:
 
     if epoch % 10 == 0 or epoch == num_epochs - 1:
         torch.save({
-            "epoch": epoch,
+            "epoch": epoch + 1,
             "encoder_dim": encoder_dim,
             "projector_dim": projector_dim,
             "model_state_dict": model.state_dict(),
