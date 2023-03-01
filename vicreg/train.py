@@ -9,17 +9,21 @@ from model import VICReg
 from loss import variance, invariance, covariance
 
 class Augmentation:
-    def __init__(self):
-        self.augment = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.RandomResizedCrop(size=32, scale=(0.2, 1.0)),
-            transforms.RandomHorizontalFlip(0.5),
-            transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.2, 0.1)], p=0.8),
-            transforms.RandomGrayscale(0.2),
-            transforms.RandomApply([transforms.GaussianBlur(3)], p=0.5),
-            transforms.RandomSolarize(0.5, p=0.2),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
-        ])
+    """
+    Wrapper around a PyTorch transform, outputting two different augmentations
+    for a single input. Applying this when loading a dataset ensures that a
+    dataloader will provide two augmentations for each sample in a batch.
+    """
+    augment = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.RandomResizedCrop(size=32, scale=(0.2, 1.0)),
+        transforms.RandomHorizontalFlip(0.5),
+        transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.2, 0.1)], p=0.8),
+        transforms.RandomGrayscale(0.2),
+        transforms.RandomApply([transforms.GaussianBlur(3)], p=0.5),
+        transforms.RandomSolarize(0.5, p=0.2),
+        transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
+    ])
         
     def __call__(self, x):
         return self.augment(x), self.augment(x)
