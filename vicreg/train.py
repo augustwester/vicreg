@@ -69,6 +69,3 @@ for epoch in progress:
             "model_state_dict": model.state_dict(),
             "optimizer_state_dict": opt.state_dict()
         },"checkpoint.pt")
-
-if __name__ == "__main__":
-        main()
