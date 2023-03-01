@@ -50,12 +50,12 @@ for epoch in progress:
         x1, x2 = [x.to(device) for x in images]
         z1, z2 = model(x1, x2)
         
+        la, mu, nu = 25, 25, 1
         var1, var2 = variance(z1), variance(z2)
         inv = invariance(z1, z2)
         cov1, cov2 = covariance(z1), covariance(z2)
-        
-        la, mu, nu = 25, 25, 1
         loss = la*inv + mu*(var1 + var2) + nu*(cov1 + cov2)
+        
         opt.zero_grad()
         loss.backward()
         opt.step()
