@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 # load model checkpoint and move model to GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-cp = torch.load("checkpoint.pt")
+cp = torch.load("checkpoint.pt", map_location=device)
 encoder_dim, projector_dim = cp["encoder_dim"], cp["projector_dim"]
 model = VICReg(encoder_dim, projector_dim).to(device)
 model.load_state_dict(cp["model_state_dict"])
@@ -31,7 +31,7 @@ augment = transforms.Compose([
 # define train and test datasets
 train_data = CIFAR10(root=".", train=True, download=True, transform=augment)
 test_data = CIFAR10(root=".", train=False, download=True, transform=transforms.ToTensor())
-train_dataloader = DataLoader(train_data, batch_size, shuffle=True, num_workers=2)
+train_dataloader = DataLoader(train_data, batch_size, shuffle=True)
 test_dataloader = DataLoader(test_data, batch_size)
 
 # use standard cross entropy loss
