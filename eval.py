@@ -16,14 +16,15 @@ model = VICReg(encoder_dim, projector_dim).to(device)
 model.load_state_dict(cp["model_state_dict"])
 
 # create linear layer, optimizer, scheduler and training hyperparams
-num_classes, batch_size, num_epochs = 10, 128, 64
+num_classes, batch_size, num_epochs = 10, 256, 50
 linear = nn.Linear(encoder_dim, num_classes).to(device)
-opt = SGD(linear.parameters(), lr=1e-4, momentum=0.9)
+opt = SGD(linear.parameters(), lr=0.02, weight_decay=1e-6)
 scheduler = CosineAnnealingLR(opt, num_epochs)
 
 # data augmentations used to regularize the linear layer
 augment = transforms.Compose([
     transforms.ToTensor(),
+    transforms.RandomResizedCrop(size=32, scale=(0.2, 1.0)),
     transforms.RandomHorizontalFlip(),
     transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
 ])
