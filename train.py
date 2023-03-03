@@ -34,7 +34,7 @@ encoder_dim, projector_dim = 512, 1024
 model = VICReg(encoder_dim, projector_dim).to(device)
 
 # prepare data, optimizer, and training hyperparams
-num_epochs, batch_size = 200, 256
+num_epochs, batch_size = 500, 256
 data = CIFAR10(root=".", train=True, download=True, transform=Augmentation())
 dataloader = DataLoader(data, batch_size, shuffle=True, num_workers=2)
 opt = Adam(model.parameters(), lr=2e-4, weight_decay=1e-6)
