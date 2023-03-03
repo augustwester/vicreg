@@ -12,7 +12,7 @@ Since CIFAR-10 is much smaller than ImageNet, a few simplifications have been ma
 2. Since the batch size is small (256), we use Adam, not LARS. The authors emphasize that VICReg doesn't require large batch sizes, so LARS shouldn't be too important anyway.
 3. Linear evaluation is performed using 50 finetuning epochs instead of 100.
 
-The model and training procedure are simple. We first instantiate our model:
+The training procedure is simple. We first instantiate our model:
 
 ```python
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
