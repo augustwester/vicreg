@@ -43,4 +43,4 @@ for images, _ in dataloader:
     opt.step()
 ```
 
-If you would like to pre-train the model beyond 500 epochs, you can download a 500-epoch checkpoint [here](https://sigmoidprime.s3.eu-central-1.amazonaws.com/vicreg/checkpoint.pt). All you need to do is move it to the root of the directory and run `python3 train.py`.
+If you would like to pre-train the model beyond 500 epochs, you can download a 500-epoch checkpoint [here](https://sigmoidprime.s3.eu-central-1.amazonaws.com/vicreg/checkpoint.pt). All you need to do is move the file to the root of the directory, set `num_epochs` in `train.py` to a target value (e.g. 750 or 1000) and run `python3 train.py`.
