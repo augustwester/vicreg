@@ -2,7 +2,7 @@
 
 ![Siamese architecture](.github/architecture.png)
 
-This repo is associated with the blog post ["Learning Self-Supervised Image Representations With VICReg"](https://sigmoidprime.com/post/vicreg/) over at [sigmoid prime](https://sigmoidprime.com/). It contains an implementation of the [VICReg](https://arxiv.org/abs/2105.04906) training procedure applied on CIFAR-10 with a ResNet-18 backbone, making it feasible to run on a single GPU.
+This repo is associated with the blog post ["Self-Supervised Learning of Image Representations With VICReg"](https://sigmoidprime.com/post/vicreg/) over at [sigmoid prime](https://sigmoidprime.com/). It contains an implementation of the [VICReg](https://arxiv.org/abs/2105.04906) training procedure applied on CIFAR-10 with a ResNet-18 backbone, making it feasible to run on a single GPU.
 
 After 500 epochs of pre-training, the model achieves an accuracy of ~87% in linear evaluation (this will almost certainly improve if you increase the number of pre-training epochs).
 
