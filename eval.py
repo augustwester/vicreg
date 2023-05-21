@@ -14,6 +14,7 @@ cp = torch.load("checkpoint.pt", map_location=device)
 encoder_dim, projector_dim = cp["encoder_dim"], cp["projector_dim"]
 model = VICReg(encoder_dim, projector_dim).to(device)
 model.load_state_dict(cp["model_state_dict"])
+model.eval()
 
 # create linear layer, optimizer, scheduler and training hyperparams
 num_classes, batch_size, num_epochs = 10, 256, 50
